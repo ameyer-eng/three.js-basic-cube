@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset=utf-8>
+		<title>My first three.js app</title>
+		<style>
+			body { margin: 0; }
+			canvas { width: 100%; height: 100% }
+		</style>
+	</head>
+	<body>
+		<script src = "three.js"></script>
+		<script>
+		var scene = new THREE.Scene();
+		var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+        var cube = [] ;
+		var material=[];
+		var renderer = new THREE.WebGLRenderer();
+		renderer.setSize( window.innerWidth, window.innerHeight );
+		document.body.appendChild( renderer.domElement );
+		
+		for( var y = 0; y <3; y++)
+		{
+			for ( var x =0; x <3; x++)
+			{
+			var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+			var Color = new THREE.Color("rgb(255, 0, 0)");
+			material[0] = new THREE.MeshBasicMaterial( { color: Color } );
+			cube[x,y] = new THREE.Mesh( geometry, material[0] );
+			cube[x,y].position.set(x*2 ,y*2 ,0)
+			scene.add( cube[x,y] );
+			}
+		}
+		camera.position.z = 5;
+ 		camera.position.x = 3;
+		camera.position.y = 2;
+		
+		function animate() {
+							requestAnimationFrame( animate );
+							for( var y = 0; y <3; y++)
+								{
+								for ( var x =0; x <3; x++)
+									{
+									cube[x].rotation.x += 0.01;
+									cube[x].rotation.y += 0.01;
+									renderer.render( scene, camera );
+									}
+								}	
+							}
+							animate();
+			// Our Javascript will go here.
+		</script>
+	</body>
+</html>
